@@ -28,7 +28,7 @@ if ( !defined('CUSTOMFEED_URL') ) {
 add_action('init', 'customRSS');
 
 function customRSS(){
-    add_feed('newfeed', 'customRSSFunc');
+    add_feed('closing-bell-story-feed', 'customRSSFunc');
     add_action( 'pre_get_posts', 'feed_content' );
 }
 
@@ -52,7 +52,7 @@ function feed_content( $query ) {
 		return;
 
 	// Bail if it's not our feed
-	if ( ! $query->is_feed( 'newfeed' ) )
+	if ( ! $query->is_feed( 'closing-bell-story-feed' ) )
 		return;
 
 	// Change the feed content
@@ -80,22 +80,7 @@ function feed_content( $query ) {
 
 function customRSSFunc(){
 	header( 'Content-Type: application/rss+xml' );
-	$postCount = 2;
-	$args = (
-	    'showposts='.$postCount.
-	    '&category_name=closing-bell-story‎'
-	);
     require_once(CUSTOMFEED_PATH.'/feed-rss2.php');
-}
-
-function add_custom_feed() {
-    add_feed( 'custom', 'render_custom_feed' );
-}
-add_action( 'init', 'add_custom_feed' );
- 
-function render_custom_feed() {
-    header( 'Content-Type: application/rss+xml' );
-    echo 'aye!';
 }
 
 function mytheme_custom_excerpt_length( $length ) {
